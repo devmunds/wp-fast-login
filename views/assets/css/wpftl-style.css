@@ -13,3 +13,10 @@
     color: #ffffff !important;
     display: block !important;
 }
+.current-user-text a{
+    color: #ffffff !important;
+}
+#show-user-error{
+    text-align: center !important;
+    color: #fd9626 !important;
+}

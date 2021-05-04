@@ -6,7 +6,7 @@ jQuery('#login').on('submit', function(e){
 
     var form = {
         'action': 'wpftl_login',
-        'email': $('#login_email').val(),
+        'username': $('#login_username').val(),
         'password': $('#login_password').val(),
     }
 
@@ -19,11 +19,34 @@ jQuery('#login').on('submit', function(e){
             if(json.status == 2){
                 setTimeout(function(){
                     location.reload();
-                  }, 2000);
+                  }, 1000);
                   
             }else{
-                jQuery("#login").html('<span class="current-user-text">Usuário / senha invalido</span>');
+                jQuery("#show-user-error").html('Usuário / senha invalido');
             }
+        }
+    });
+
+});
+
+//Logout
+jQuery('#logoutuser').on('click', function(e){
+    e.preventDefault();
+
+    var form = {
+        'action': 'wpftl_logout',
+        'ajaxsecurity' : login_obj.logout_nonce,
+    }
+
+    jQuery.ajax({
+        type: 'POST',
+        //dataType: 'json',
+        url: login_obj.ajax_url,
+        data: form,
+        success: function(r){
+            setTimeout(function(){
+                location.reload();
+            }, 1000);              
         }
     });
 

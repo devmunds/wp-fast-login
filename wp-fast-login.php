@@ -3,11 +3,14 @@
 * Plugin name:          WP Fast Login
 * Plugin URI:			https://devmunds,com.br/
 * Description:          This plugin is for login by shortcode [wpftl-form-login]
-* Version:				1.0.1
+* Version:				1.0.6
 * Author:				Devmunds
 * Author URI:			https://devmunds,com.br/
 * Requires at least:	5.3
 * Tested up to:		    5.7.1
+* Requires PHP: 5.6
+* License: GPLv2 or later
+* License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 include plugin_dir_path(__FILE__) . 'includes/wpftl-functions.php';
