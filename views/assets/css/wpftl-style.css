@@ -1,0 +1,15 @@
+.form-control{
+    float: left !important;
+    width: 33.3333% !important;
+    margin-bottom: 10px !important;
+}
+.form-control input{
+    width: 100% !important;
+    border: none !important;
+    padding: 8px !important; 
+}
+.current-user-text{
+    text-align: center !important;
+    color: #ffffff !important;
+    display: block !important;
+}
