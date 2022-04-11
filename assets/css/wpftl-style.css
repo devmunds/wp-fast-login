@@ -1,21 +1,26 @@
-.form-control{
-    float: left !important;
-    width: 33.3333% !important;
-    margin-bottom: 10px !important;
+.input-f{
+    width: 29% !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+    padding: 10px !important;
 }
-.form-control input{
-    width: 100% !important;
-    border: none !important;
-    padding: 8px !important; 
+
+.login-f{
+    background-color: #f4f4f4 !important;
+    color: #353535 !important;
+    cursor: pointer !important;
 }
+
 .current-user-text{
     text-align: center !important;
     color: #ffffff !important;
     display: block !important;
 }
+
 .current-user-text a{
     color: #ffffff !important;
 }
+
 #show-user-error{
     text-align: center !important;
     color: #fd9626 !important;

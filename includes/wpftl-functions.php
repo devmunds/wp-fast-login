@@ -2,8 +2,11 @@
 //This function enqueue scripts
 if(!function_exists('wpftl_enqueue_scripts')){
     function wpftl_enqueue_scripts(){
-        wp_enqueue_style('wpftl-login-style', '/wp-content/plugins/wp-fast-login/views/assets/css/wpftl-style.css', array(), '1.0.11', 'all');
-        wp_enqueue_script('wpftl-login-js2', '/wp-content/plugins/wp-fast-login/views/assets/js/wpftl-login.js', array('jquery'), '1.0.11', true);
+
+        $plugin_uri = str_replace('/includes', '', plugin_dir_url(__FILE__));
+
+        wp_enqueue_style('wpftl-login-style', $plugin_uri . 'assets/css/wpftl-style.css', array(), '1.0.14', 'all');
+        wp_enqueue_script('wpftl-login-js2',  $plugin_uri . 'assets/js/wpftl-login.js', array('jquery'), '1.0.14', true);
 
         wp_localize_script('wpftl-login-js2', 'login_obj', array(
             'ajax_url' => admin_url("admin-ajax.php"),
@@ -13,12 +16,7 @@ if(!function_exists('wpftl_enqueue_scripts')){
     }
 }
 
-//this function add create form login
-if(!function_exists('wpftl_content_form_login')){
-    function wpftl_content_form_login(){
-        include plugin_dir_path(__FILE__) . '../views/templates/login/wpftl-form.php';
-    }
-}
+add_action('wp_enqueue_scripts', 'wpftl_enqueue_scripts');
 
 //This function create form new login
 if(!function_exists('wpftl_form_login')){
@@ -26,25 +24,28 @@ if(!function_exists('wpftl_form_login')){
         $current_user = wp_get_current_user();
 
         if (is_user_logged_in() === false) {
-            //do_action('wpftl-content-form-login');            
-            $formHTML = '<form method="post" id="login">
-                            <div class="form-control">
-                                <input type="text" name="username" id="login_username" placeholder="Login" required>    
-                            </div>
-                            <div class="form-control">
-                                <input type="password" name="password" id="login_password" placeholder="Senha" required>        
-                            </div>
-                            <div class="form-control">
-                                <input type="submit" value="Entrar" id="entrar">    
-                            </div>                                   
-                        </form>
-                        <p id="show-user-error"></p> ';
-            return $formHTML;
+          
+            $formLo = '
+            
+            <form method="post" id="login">              
+                <input class="input-f" type="text" name="username" id="login_username" placeholder="Login" required/>    
+                <input class="input-f" type="password" name="password" id="login_password" placeholder="Senha" required/>                       
+                <input class="input-f login-f" type="submit" value="Entrar" id="entrar"/>                                                    
+            </form>
+            <p id="show-user-error"></p>
+            
+            ';
+
+            return $formLo;
+           
         }else{          
             return '<span class="current-user-text">Olá, '. $current_user->user_firstname . ' | <a href="#" id="logoutuser">Sair</a></span>';         
         }
+
     }
 }
+
+add_shortcode('wpftl-form-login', 'wpftl_form_login');
 
 //this function is for login
 if(!function_exists('wpftl_login')){
@@ -85,6 +86,10 @@ if(!function_exists('wpftl_login')){
     
 }
 
+//Login
+add_action('wp_ajax_nopriv_wpftl_login','wpftl_login');
+add_action('wp_ajax_wpftl_login','wpftl_login');
+
 //this function is for logout
 if(!function_exists('wpftl_logout')){
     function wpftl_logout(){
@@ -95,3 +100,7 @@ if(!function_exists('wpftl_logout')){
         wp_die();
     }
 }
+
+//Logout
+add_action( 'wp_ajax_wpftl_logout', 'wpftl_logout' );
+add_action( 'wp_ajax_nopriv_wpftl_logout', 'wpftl_logout' );
